@@ -1,0 +1,26 @@
+# Specify a base image
+FROM alpine:3.4
+
+RUN apk update && \
+    apk add --no-cache openssh-client && \
+    apk add --no-cache git && \
+    apk add --update nodejs
+
+# SSH configuration
+RUN mkdir -p -m 0700 ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts
+RUN --mount=type=ssh ssh -q -T git@github.com 2>&1 | tee /hello
+# "Welcome to GitLab, @GITLAB_USERNAME_ASSOCIATED_WITH_SSHKEY" should be printed here
+# with the type of build progress is defined as `plain`.
+
+# Download GitHub repository
+RUN git clone https://github.com/grabowski-michal/PFSwChO_Lab3
+
+# Install some depenendencies
+RUN npm install
+
+RUN cd PFSwChO_Lab3
+WORKDIR /PFSwChO_Lab3
+
+RUN chmod 755 /PFSwChO_Lab3
+
+CMD ["npm", "start"]
