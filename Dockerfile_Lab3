@@ -15,12 +15,14 @@ RUN --mount=type=ssh ssh -q -T git@github.com 2>&1 | tee /hello
 # Download GitHub repository
 RUN git clone https://github.com/grabowski-michal/PFSwChO_Lab3
 
-# Install some depenendencies
-RUN npm install
-
 RUN cd PFSwChO_Lab3
 WORKDIR /PFSwChO_Lab3
 
 RUN chmod 755 /PFSwChO_Lab3
+
+COPY . .
+
+# Install some depenendencies
+RUN npm install
 
 CMD ["npm", "start"]
