@@ -1,0 +1,4 @@
+FROM ubuntu
+COPY .hidden.txt /
+RUN rm .hidden.txt
+CMD [ "/bin/bash" ]

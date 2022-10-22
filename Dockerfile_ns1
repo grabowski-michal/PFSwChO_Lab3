@@ -1,0 +1,3 @@
+FROM ubuntu
+COPY .hidden.txt /
+CMD [ "/bin/bash" ]

@@ -1,0 +1,6 @@
+# syntax=docker/dockerfile:1.2
+
+FROM ubuntu
+
+RUN --mount=type=secret,id=mysecret,dst=/dark.txt cat /dark.txt
+CMD [ "/bin/bash" ]
